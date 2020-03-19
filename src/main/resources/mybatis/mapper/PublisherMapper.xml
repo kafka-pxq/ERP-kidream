@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper
+	namespace="com.kidream.dept.tongtianxia.library.mapper.PublisherMapper">
+	<resultMap id="publisherMap"
+		type="com.kidream.dept.tongtianxia.library.domin.Publisher">
+		<id column="id" jdbcType="BIGINT" property="organization_code" />
+		<result column="publisher_name" jdbcType="VARCHAR" property="publisher_name" />
+		<result column="address" jdbcType="VARCHAR" property="address" />
+		<result column="contact" jdbcType="VARCHAR" property="contact" />
+	</resultMap>
+
+	<sql id="keys">
+		<trim prefix="," suffixOverrides=",">
+			<if test="address != null and address != ''">
+				address,
+			</if>
+			<if test="contact != null and contact != ''">
+				contact,
+			</if>
+		</trim>
+	</sql>
+
+	<sql id="values">
+		<trim prefix="," suffixOverrides=",">
+			<if test="address != null and address != ''">
+				#{address},
+			</if>
+			<if test="contact != null and contact != ''">
+				#{contact},
+			</if>
+		</trim>
+	</sql>
+
+
+	<select id="getPublishers" resultMap="publisherMap">
+		select
+		id,publisher_name,address,contact from publisher
+	</select>
+	
+	<select id="getPublisher" resultMap="publisherMap">
+		select id,publisher_name,address,contact from publisher where id = #{publisher_id}
+	</select>
+
+	<insert id="insert">
+		insert into publisher (id,publisher_name
+		<include refid="keys" />
+		) values (#{organization_code},#{pubisher_name}
+		<include refid="values" />
+		)
+	</insert>
+	
+</mapper>

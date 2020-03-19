@@ -1,0 +1,42 @@
+1.项目分包：
+com.kidream.tongtianxia
+					   .employee
+					   .customer
+					   .storage
+					   		     .mapper
+					   		     .service
+					   		     		  .impl
+					   		     .controller
+					   		     .context
+					   		     .pojo
+					   		     .interceptor
+		   .enjoy_train_school
+		   .kindergarten
+		   .context项目上下文
+		   		   .login
+		   		   		 .sessionContext			
+		   		   		 
+数据库建表：
+系统：user表		（登录用户）	   		   		 
+		童天下：	employee表		 （员工表）
+	id		employee_name		gender		age		birthday		telNumber		IDCard(身份证号码)		position_name(职位)		hiredate(入职时间)			
+position表		（职位表：如：园长，股东，发行助理，销售总监，总经理，采购员，区域经理）
+	id		position_name	
+库房：
+product表			（产品信息表）		
+	id		product_name		  attribute		  inventory(库存量)		  publisher_name（出版商）	subject_name（科目）	 product_type_name(分类)		unitPrice(单价)		discount(折扣)		discountPrice（折扣价）		totalPrice(总价)		discountTotalPrice(折扣总价)	
+publisher表			 （出版社）
+	id		publisher_name			address		contact(联系方式)
+product_type表		  （产品类型表:教师用品，学生用书，装修，玩具，电子产品，定制类，）
+	id		product_type_name
+subject表		
+	id		subject_name		  （科目表:语言，数学，音乐，科学，手工，美术，国学，礼仪，英语，其他）	
+客户：
+customer表			（客户信息表）
+	id		customer_name		kindergarten(幼儿园)			customer_type		position_name(职位名称)		telNumber		address			
+status表				（客户状态类型表：正式客户，陌生客户，流失客户，潜在客户，）
+	id		comstomer_type	
+				 
+			
+	
+							    

@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kidream.dept.tongtianxia.library.mapper.ProductMapper">
+	
+	<resultMap type="com.kidream.dept.tongtianxia.library.domin.Product" id="productMap">
+		<id column="id" property="id"/>
+		<result column="product_name" property="product_name"/>
+		<result column="attribute" property="attribute"/>
+		<result column="inventory" property="inventory"/>
+		<association property="publisher" javaType="com.kidream.dept.tongtianxia.library.domin.Publisher" select="com.kidream.dept.tongtianxia.library.mapper.PublisherMapper.getPublisher" column="publisher_id"/>		
+		<association property="subject" javaType="com.kidream.dept.tongtianxia.library.domin.Subject" select="com.kidream.dept.tongtianxia.library.mapper.SubjectMapper.getSubjectById" column="subject_id"/>
+	</resultMap>
+	
+	<sql id="keys">
+		<trim prefix="," suffixOverrides=",">
+			<if test="attribute != null">
+				attribute,
+			</if>
+			<if test="inventory != null">
+				inventory,
+			</if>
+			<if test="publisher != null">
+				publisher_id,
+			</if>
+			<if test="subject != null">
+				subject_id,
+			</if>
+			<if test="unitPrice != null">
+				unitPrice,
+			</if>
+			<if test="discount != null">
+			 	discount,
+			</if>
+		</trim>
+	</sql>
+	
+	<sql id="values">
+		<trim prefix="," suffixOverrides=",">
+			<if test="attribute != null">
+				#{attribute},
+			</if>
+			<if test="inventory != null">
+				#{inventory},
+			</if>
+			<if test="publisher != null">
+				#{publisher.organization_code},
+			</if>
+			<if test="subject != null">
+				#{subject.id},
+			</if>
+			<if test="unitPrice != null">
+				#{unitPrice},
+			</if>
+			<if test="discount != null">
+			 	#{discount},
+			</if>
+		</trim>
+	</sql>
+	
+	<insert id="insert" useGeneratedKeys="true">
+		insert into product (product_name <include refid="keys"/>)
+		values (#{product_name} <include refid="values"/> )
+	</insert>	
+	<select id="listAll" resultMap="productMap">
+		select id,product_name,attribute,inventory,publisher_id,subject_id,unitPrice,discount from product
+	</select>
+	
+	<delete id="delete">
+		delete from product where id = #{id}
+	</delete>
+	
+	<select id="getProduct" resultMap="productMap">
+		select id,product_name,attribute from product where product_name = #{product_name} and attribute = #{attribute} 
+	</select>
+	
+	<select id="getProductById" parameterType="Long" resultMap="productMap">
+		select id,product_name,attribute,inventory,publisher_id,subject_id,unitPrice,discount from product where id = #{id}
+	</select>
+	
+	<update id="updateProductById">
+		update product set 
+	</update>
+</mapper>
